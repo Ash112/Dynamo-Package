@@ -1,0 +1,67 @@
+<Workspace Version="1.3.2.2480" X="409.205022760037" Y="164.757003674633" zoom="1.05429821501133" ScaleFactor="1" Name="Create Worksets" Description="Create Worksets From Given List" ID="b160e444-643e-4f5b-a27d-8c97c5fcf523" Category="AKP Tools.General">
+  <NamespaceResolutionMap />
+  <Elements>
+    <PythonNodeModels.PythonNode guid="c35fe19d-55e5-4e3f-9c3b-dbf4a82ce930" type="PythonNodeModels.PythonNode" nickname="Create Worksets" x="250" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="true" inputcount="1">
+      <PortInfo index="0" default="False" />
+      <Script>import clr
+
+clr.AddReference('RevitAPI')
+from Autodesk.Revit.DB import *
+from Autodesk.Revit.DB.Structure import *
+
+
+clr.AddReference('RevitNodes')
+import Revit
+clr.ImportExtensions(Revit.GeometryConversion)
+clr.ImportExtensions(Revit.Elements)
+
+clr.AddReference('RevitServices')
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+from System.Collections.Generic import *
+
+clr.AddReference("RevitAPI")
+import Autodesk
+from Autodesk.Revit.DB import *
+
+doc = DocumentManager.Instance.CurrentDBDocument
+view = doc.ActiveView
+
+
+WorksetName = IN[0]
+
+TransactionManager.Instance.EnsureInTransaction(doc)
+
+for i in WorksetName:
+		
+		NewWorkset = Workset.Create(doc,i)
+		
+
+
+TransactionManager.Instance.TransactionTaskDone()			
+
+		
+		
+	
+OUT = NewWorkset</Script>
+    </PythonNodeModels.PythonNode>
+    <Dynamo.Graph.Nodes.CustomNodes.Output guid="ad9599a4-06b1-4545-b7e4-47c2589db469" type="Dynamo.Graph.Nodes.CustomNodes.Output" nickname="Output" x="449" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
+      <PortInfo index="0" default="False" />
+      <Symbol value="//Worksets Created&#xD;&#xA;Worksets&#xD;&#xA;" />
+    </Dynamo.Graph.Nodes.CustomNodes.Output>
+    <Dynamo.Graph.Nodes.CustomNodes.Symbol guid="d1d1082d-1236-442f-8f46-41dcac1539c0" type="Dynamo.Graph.Nodes.CustomNodes.Symbol" nickname="Input" x="-360.137522079297" y="-1.65737636753493" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <Symbol value="//Name of Worksets to be Created &#xD;&#xA;WorksetNames" />
+    </Dynamo.Graph.Nodes.CustomNodes.Symbol>
+  </Elements>
+  <Connectors>
+    <Dynamo.Graph.Connectors.ConnectorModel start="c35fe19d-55e5-4e3f-9c3b-dbf4a82ce930" start_index="0" end="ad9599a4-06b1-4545-b7e4-47c2589db469" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="d1d1082d-1236-442f-8f46-41dcac1539c0" start_index="0" end="c35fe19d-55e5-4e3f-9c3b-dbf4a82ce930" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="Background Preview" eyeX="-17" eyeY="24" eyeZ="50" lookX="12" lookY="-13" lookZ="-58" upX="0" upY="1" upZ="0" />
+  </Cameras>
+</Workspace>

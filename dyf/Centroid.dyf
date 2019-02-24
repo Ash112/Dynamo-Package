@@ -1,0 +1,58 @@
+<Workspace Version="1.3.2.2480" X="-546.747836128112" Y="163.25101598424" zoom="0.695946673591597" ScaleFactor="1" Name="Centroid" Description="Gets the Centroid of Compound Objects" ID="574231e0-7b75-4c1b-970f-a3ec37816de7" Category="AKP Tools.Geometry">
+  <NamespaceResolutionMap />
+  <Elements>
+    <Dynamo.Graph.Nodes.ZeroTouch.DSFunction guid="4d796782-248b-43b6-bcb6-19a013af770b" type="Dynamo.Graph.Nodes.ZeroTouch.DSFunction" nickname="Solid.Centroid" x="1219.2851522225" y="254.065210381203" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" IsFrozen="false" isPinned="false" assembly="ProtoGeometry.dll" function="Autodesk.DesignScript.Geometry.Solid.Centroid">
+      <PortInfo index="0" default="False" />
+    </Dynamo.Graph.Nodes.ZeroTouch.DSFunction>
+    <Dynamo.Graph.Nodes.ZeroTouch.DSFunction guid="438448c0-8c88-494e-bd43-232a4f7b74c4" type="Dynamo.Graph.Nodes.ZeroTouch.DSFunction" nickname="Solid.Union" x="928.330772113021" y="112.492188633502" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" IsFrozen="false" isPinned="false" assembly="ProtoGeometry.dll" function="Autodesk.DesignScript.Geometry.Solid.Union@Autodesk.DesignScript.Geometry.Solid">
+      <PortInfo index="0" default="False" />
+      <PortInfo index="1" default="False" />
+    </Dynamo.Graph.Nodes.ZeroTouch.DSFunction>
+    <Dynamo.Graph.Nodes.ZeroTouch.DSFunction guid="f05d8118-cdfb-43e6-91c7-8cfc70d2f476" type="Dynamo.Graph.Nodes.ZeroTouch.DSFunction" nickname="FamilyInstance.ByPoint" x="1492.08532620705" y="105.472398237015" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" IsFrozen="false" isPinned="false" assembly="RevitNodes.dll" function="Revit.Elements.FamilyInstance.ByPoint@Revit.Elements.FamilyType,Autodesk.DesignScript.Geometry.Point">
+      <PortInfo index="0" default="False" />
+      <PortInfo index="1" default="False" />
+    </Dynamo.Graph.Nodes.ZeroTouch.DSFunction>
+    <Dynamo.Graph.Nodes.ZeroTouch.DSFunction guid="6b74e51a-693c-4ec4-b3ee-46e23ba7cd8d" type="Dynamo.Graph.Nodes.ZeroTouch.DSFunction" nickname="Element.Geometry" x="592.000959207865" y="248.935581937452" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" IsFrozen="false" isPinned="false" assembly="RevitNodes.dll" function="Revit.Elements.Element.Geometry">
+      <PortInfo index="0" default="False" />
+    </Dynamo.Graph.Nodes.ZeroTouch.DSFunction>
+    <Dynamo.Graph.Nodes.ZeroTouch.DSFunction guid="2dc41c93-69ea-4447-a47a-1059cf521f92" type="Dynamo.Graph.Nodes.ZeroTouch.DSFunction" nickname="Element.Geometry" x="589.469778525046" y="72.54062662174" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" IsFrozen="false" isPinned="false" assembly="RevitNodes.dll" function="Revit.Elements.Element.Geometry">
+      <PortInfo index="0" default="False" />
+    </Dynamo.Graph.Nodes.ZeroTouch.DSFunction>
+    <Dynamo.Graph.Nodes.CustomNodes.Output guid="f7d997a5-1a4a-441c-b66f-33232ea65d32" type="Dynamo.Graph.Nodes.CustomNodes.Output" nickname="Output" x="1806.95847061464" y="271.674757692546" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
+      <PortInfo index="0" default="False" />
+      <Symbol value="//Centroid point&#xD;&#xA;Centroid" />
+    </Dynamo.Graph.Nodes.CustomNodes.Output>
+    <Dynamo.Graph.Nodes.CustomNodes.Symbol guid="1acc39fe-449e-4c30-b46e-31369c4408b4" type="Dynamo.Graph.Nodes.CustomNodes.Symbol" nickname="Input" x="754.69612877236" y="-81.6549630616546" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <Symbol value="//Select the Centroid Family to be placed at the Centroid Point&#xD;&#xA;COGFamily" />
+    </Dynamo.Graph.Nodes.CustomNodes.Symbol>
+    <Dynamo.Graph.Nodes.CustomNodes.Symbol guid="a795b521-cf50-4b5d-ab0c-2df413d53fb0" type="Dynamo.Graph.Nodes.CustomNodes.Symbol" nickname="Input" x="32.4300879316321" y="53.3864389771322" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <Symbol value="//Select the first element of the Compound Objects&#xD;&#xA;SelectFirstElement" />
+    </Dynamo.Graph.Nodes.CustomNodes.Symbol>
+    <Dynamo.Graph.Nodes.CustomNodes.Symbol guid="f71069df-60e4-4f42-bf27-90cefe5461e0" type="Dynamo.Graph.Nodes.CustomNodes.Symbol" nickname="Input" x="-43.8335000084102" y="254.993409369863" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <Symbol value="//Select the Second element of the Compound Objects&#xD;&#xA;SelectSecondElement" />
+    </Dynamo.Graph.Nodes.CustomNodes.Symbol>
+    <Dynamo.Graph.Nodes.CustomNodes.Output guid="91322e63-c362-4e8a-92ec-4b9198292038" type="Dynamo.Graph.Nodes.CustomNodes.Output" nickname="Output" x="1798.07274015961" y="110.004286329176" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
+      <PortInfo index="0" default="False" />
+      <Symbol value="COGFamily" />
+    </Dynamo.Graph.Nodes.CustomNodes.Output>
+  </Elements>
+  <Connectors>
+    <Dynamo.Graph.Connectors.ConnectorModel start="4d796782-248b-43b6-bcb6-19a013af770b" start_index="0" end="f05d8118-cdfb-43e6-91c7-8cfc70d2f476" end_index="1" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="4d796782-248b-43b6-bcb6-19a013af770b" start_index="0" end="f7d997a5-1a4a-441c-b66f-33232ea65d32" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="438448c0-8c88-494e-bd43-232a4f7b74c4" start_index="0" end="4d796782-248b-43b6-bcb6-19a013af770b" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="f05d8118-cdfb-43e6-91c7-8cfc70d2f476" start_index="0" end="91322e63-c362-4e8a-92ec-4b9198292038" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="6b74e51a-693c-4ec4-b3ee-46e23ba7cd8d" start_index="0" end="438448c0-8c88-494e-bd43-232a4f7b74c4" end_index="1" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="2dc41c93-69ea-4447-a47a-1059cf521f92" start_index="0" end="438448c0-8c88-494e-bd43-232a4f7b74c4" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="1acc39fe-449e-4c30-b46e-31369c4408b4" start_index="0" end="f05d8118-cdfb-43e6-91c7-8cfc70d2f476" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="a795b521-cf50-4b5d-ab0c-2df413d53fb0" start_index="0" end="2dc41c93-69ea-4447-a47a-1059cf521f92" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="f71069df-60e4-4f42-bf27-90cefe5461e0" start_index="0" end="6b74e51a-693c-4ec4-b3ee-46e23ba7cd8d" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations>
+    <Dynamo.Graph.Annotations.AnnotationModel guid="d55dc739-bc3c-42eb-9308-58b14da7080f" annotationText="Get Geometry" left="579.469778525046" top="26.54062662174" width="219.531180682819" height="315.394955315712" fontSize="30" InitialTop="72.54062662174" InitialHeight="299.394955315712" TextblockHeight="36" backgrouund="#FFC1D676">
+      <Models ModelGuid="6b74e51a-693c-4ec4-b3ee-46e23ba7cd8d" />
+      <Models ModelGuid="2dc41c93-69ea-4447-a47a-1059cf521f92" />
+    </Dynamo.Graph.Annotations.AnnotationModel>
+  </Annotations>
+  <Presets />
+</Workspace>

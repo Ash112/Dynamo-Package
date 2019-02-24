@@ -1,0 +1,52 @@
+<Workspace Version="1.3.3.4111" X="382.248305206315" Y="362.154335793403" zoom="0.572433706679816" ScaleFactor="1" Name="ContactMe" Description="Contact me on linkedin" ID="e050147e-6e74-4d69-9eba-10cb7dd79e3b" Category="AKP Tools.Info">
+  <NamespaceResolutionMap />
+  <Elements>
+    <PythonNodeModels.PythonNode guid="cbc2960c-4361-4cc8-92f3-c0a0e3674918" type="PythonNodeModels.PythonNode" nickname="Python Script" x="250" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" inputcount="2">
+      <PortInfo index="0" default="False" />
+      <PortInfo index="1" default="False" />
+      <Script>
+import clr
+
+from System.Diagnostics import Process
+
+
+status = "Success!! Login Linkedin first"
+
+
+
+if IN[0] == 1:
+
+	try:
+
+		x = Process.Start('https://www.linkedin.com/in/ashwinkumarp/')
+	
+	except:
+
+		status = "Default browser not set!!!"
+		
+else:
+
+	status = " RunIt "
+	
+	
+OUT = status</Script>
+    </PythonNodeModels.PythonNode>
+    <Dynamo.Graph.Nodes.CustomNodes.Symbol guid="016c6209-ba9a-43bb-9284-7078f955b830" type="Dynamo.Graph.Nodes.CustomNodes.Symbol" nickname="Launch" x="-249.336019584612" y="-83.8072883644866" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <Symbol value="//Set True to launch website in your default browser!&#xD;&#xA;&#xD;&#xA;Launch:bool=false" />
+    </Dynamo.Graph.Nodes.CustomNodes.Symbol>
+    <Dynamo.Graph.Nodes.CustomNodes.Output guid="125d8042-ece7-4392-9852-0adf522efa49" type="Dynamo.Graph.Nodes.CustomNodes.Output" nickname="Output" x="420.065056367118" y="-8.92110465882854" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
+      <PortInfo index="0" default="False" />
+      <Symbol value="Status" />
+    </Dynamo.Graph.Nodes.CustomNodes.Output>
+  </Elements>
+  <Connectors>
+    <Dynamo.Graph.Connectors.ConnectorModel start="cbc2960c-4361-4cc8-92f3-c0a0e3674918" start_index="0" end="125d8042-ece7-4392-9852-0adf522efa49" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="016c6209-ba9a-43bb-9284-7078f955b830" start_index="0" end="cbc2960c-4361-4cc8-92f3-c0a0e3674918" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="Background Preview" eyeX="-17" eyeY="24" eyeZ="50" lookX="12" lookY="-13" lookZ="-58" upX="0" upY="1" upZ="0" />
+  </Cameras>
+</Workspace>

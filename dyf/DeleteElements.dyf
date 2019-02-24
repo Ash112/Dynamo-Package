@@ -1,0 +1,74 @@
+<Workspace Version="1.3.2.2480" X="216.090359121179" Y="321.38814774662" zoom="1.13758205229474" ScaleFactor="1" Name="DeleteElements" Description="Delete Input Elements From Project" ID="b95f13e3-74e1-4e51-978b-49b7f6155592" Category="AKP Tools.General">
+  <NamespaceResolutionMap>
+    <ClassMap partialName="List" resolvedName="DSCore.List" assemblyName="DSCoreNodes.dll" />
+    <ClassMap partialName="List.Empty" resolvedName="DSCore.List" assemblyName="DSCoreNodes.dll" />
+  </NamespaceResolutionMap>
+  <Elements>
+    <PythonNodeModels.PythonNode guid="9a18366d-8f51-4b66-9ce7-585c87c768ff" type="PythonNodeModels.PythonNode" nickname="Python Template" x="250" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" inputcount="1">
+      <PortInfo index="0" default="False" />
+      <Script>import clr
+clr.AddReference('ProtoGeometry')
+from Autodesk.DesignScript.Geometry import *
+# Import ToDSType(bool) extension method
+clr.AddReference("RevitNodes")
+import Revit
+clr.ImportExtensions(Revit.Elements)
+# Import geometry conversion extension methods
+clr.ImportExtensions(Revit.GeometryConversion)
+# Import DocumentManager and TransactionManager
+clr.AddReference("RevitServices")
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+from System.Collections.Generic import *
+# Import RevitAPI
+clr.AddReference("RevitAPI")
+import Autodesk
+from Autodesk.Revit.DB import *
+
+doc = DocumentManager.Instance.CurrentDBDocument
+uiapp = DocumentManager.Instance.CurrentUIApplication
+app = uiapp.Application
+
+elt = []
+for i in IN[0]:
+	elt.append(UnwrapElement(i).Id)
+
+# Start Transaction
+TransactionManager.Instance.EnsureInTransaction(doc)
+
+
+cantdelete=[]
+for item in elt:
+	try:
+		doc.Delete(item)
+	except:
+		cantdelete.append(item)
+		
+
+# End Transaction
+TransactionManager.Instance.TransactionTaskDone()
+
+doc.Regenerate()
+
+OUT=cantdelete</Script>
+    </PythonNodeModels.PythonNode>
+    <Dynamo.Graph.Nodes.CustomNodes.Output guid="a06d5fa8-a6b7-47e0-9c72-ccc0c5287ca2" type="Dynamo.Graph.Nodes.CustomNodes.Output" nickname="Output" x="449" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
+      <PortInfo index="0" default="False" />
+      <Symbol value="//Elements That Cannot be Deleted&#xD;&#xA;NotDeleted" />
+    </Dynamo.Graph.Nodes.CustomNodes.Output>
+    <Dynamo.Graph.Nodes.CustomNodes.Symbol guid="761247e0-556b-4a64-85e8-95b97cf9177c" type="Dynamo.Graph.Nodes.CustomNodes.Symbol" nickname="Input" x="-136.14423714356" y="-167.595456364807" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <Symbol value="//Select the Model Elements to be Deleted&#xD;&#xA;DelElements" />
+    </Dynamo.Graph.Nodes.CustomNodes.Symbol>
+  </Elements>
+  <Connectors>
+    <Dynamo.Graph.Connectors.ConnectorModel start="9a18366d-8f51-4b66-9ce7-585c87c768ff" start_index="0" end="a06d5fa8-a6b7-47e0-9c72-ccc0c5287ca2" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="761247e0-556b-4a64-85e8-95b97cf9177c" start_index="0" end="9a18366d-8f51-4b66-9ce7-585c87c768ff" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="Background Preview" eyeX="-17" eyeY="24" eyeZ="50" lookX="12" lookY="-13" lookZ="-58" upX="0" upY="1" upZ="0" />
+  </Cameras>
+</Workspace>

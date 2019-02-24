@@ -1,0 +1,71 @@
+<Workspace Version="1.3.3.4111" X="165" Y="178" zoom="1" ScaleFactor="1" Name="AllElementsInProject" Description="Returns All Elements In Project" ID="3883c6d5-d5d4-475f-a57a-4e48e48a5882" Category="AKP Tools.Selection">
+  <NamespaceResolutionMap />
+  <Elements>
+    <PythonNodeModels.PythonNode guid="abc3337b-28da-4a7f-a8e8-ba4193922f3d" type="PythonNodeModels.PythonNode" nickname="All Elements" x="250" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" inputcount="2">
+      <PortInfo index="0" default="False" />
+      <PortInfo index="1" default="False" />
+      <Script>import clr
+clr.AddReference('ProtoGeometry')
+from Autodesk.DesignScript.Geometry import *
+# Import ToDSType(bool) extension method
+clr.AddReference("RevitNodes")
+import Revit
+clr.ImportExtensions(Revit.Elements)
+# Import geometry conversion extension methods
+clr.ImportExtensions(Revit.GeometryConversion)
+# Import DocumentManager and TransactionManager
+clr.AddReference("RevitServices")
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+from System.Collections.Generic import *
+# Import RevitAPI
+clr.AddReference("RevitAPI")
+import Autodesk
+from Autodesk.Revit.DB import *
+
+doc = DocumentManager.Instance.CurrentDBDocument
+uiapp = DocumentManager.Instance.CurrentUIApplication
+app = uiapp.Application
+
+
+
+coll = FilteredElementCollector(doc)
+
+
+
+check = IN[0]
+
+# Start Transaction
+TransactionManager.Instance.EnsureInTransaction(doc)
+
+if check == True:
+
+		elementCollector = coll.WhereElementIsNotElementType().ToElements()
+		
+else:
+
+	null
+
+TransactionManager.Instance.TransactionTaskDone()
+
+
+
+OUT=elementCollector</Script>
+    </PythonNodeModels.PythonNode>
+    <Dynamo.Graph.Nodes.CustomNodes.Output guid="bf0d7b64-e45b-40e8-a18a-9f145f064d15" type="Dynamo.Graph.Nodes.CustomNodes.Output" nickname="Output" x="459.5" y="-3" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
+      <PortInfo index="0" default="False" />
+      <Symbol value="AllElements" />
+    </Dynamo.Graph.Nodes.CustomNodes.Output>
+    <Dynamo.Graph.Nodes.CustomNodes.Symbol guid="8ab9b678-5438-46c5-9275-1154bf003e8c" type="Dynamo.Graph.Nodes.CustomNodes.Symbol" nickname="Input" x="-90.5" y="5" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <Symbol value="GetAllElements:bool=false" />
+    </Dynamo.Graph.Nodes.CustomNodes.Symbol>
+  </Elements>
+  <Connectors>
+    <Dynamo.Graph.Connectors.ConnectorModel start="abc3337b-28da-4a7f-a8e8-ba4193922f3d" start_index="0" end="bf0d7b64-e45b-40e8-a18a-9f145f064d15" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="8ab9b678-5438-46c5-9275-1154bf003e8c" start_index="0" end="abc3337b-28da-4a7f-a8e8-ba4193922f3d" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+</Workspace>

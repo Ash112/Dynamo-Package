@@ -1,0 +1,123 @@
+<Workspace Version="1.3.2.2480" X="-1823.50471090106" Y="137.665201751387" zoom="1.75350378564085" ScaleFactor="1" Name="Rebar Visibility Control" Description="Set Rebar Solid Or unobstructed in Current View" ID="35f29f71-5012-4769-9339-1881f609353e" Category="AKP Tools.Rebar">
+  <NamespaceResolutionMap />
+  <Elements>
+    <PythonNodeModels.PythonNode guid="3154a6f4-8512-490a-a764-be7721f4a7ec" type="PythonNodeModels.PythonNode" nickname="Python Script" x="893.790882674261" y="61.6480310666248" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" inputcount="2">
+      <PortInfo index="0" default="False" />
+      <PortInfo index="1" default="False" />
+      <Script>import clr
+
+clr.AddReference('RevitAPI')
+from Autodesk.Revit.DB import *
+from Autodesk.Revit.DB.Structure import *
+
+clr.AddReference('RevitAPIUI')
+from Autodesk.Revit.UI import *
+
+clr.AddReference('System')
+from System.Collections.Generic import List
+
+clr.AddReference('RevitNodes')
+import Revit
+clr.ImportExtensions(Revit.GeometryConversion)
+clr.ImportExtensions(Revit.Elements)
+
+clr.AddReference('RevitServices')
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+
+doc = DocumentManager.Instance.CurrentDBDocument
+uidoc=DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument
+
+
+
+
+#Preparing input from dynamo to revit
+
+Solidinview = IN[0]
+
+Unobstructedinview = IN[1]
+
+u = []
+
+f = []
+
+collector = FilteredElementCollector(doc)
+
+rebars = collector.OfClass(Rebar).ToElements()
+
+v= doc.ActiveView
+
+#Do some action in a Transaction
+TransactionManager.Instance.EnsureInTransaction(doc)
+
+if Solidinview == True:
+
+	for bars in rebars:
+
+		bars.SetSolidInView(v,True)
+					
+else:
+
+	for bars in rebars:
+
+		bars.SetSolidInView(v,False)
+		
+if Unobstructedinview == True:
+
+	for bars in rebars:
+
+		bars.SetUnobscuredInView(v,True)
+				
+else:
+
+	for bars in rebars:
+
+		bars.SetUnobscuredInView(v,False)
+				
+TransactionManager.Instance.TransactionTaskDone()
+
+
+OUT = Solidinview,Unobstructedinview
+</Script>
+    </PythonNodeModels.PythonNode>
+    <Dynamo.Graph.Nodes.CodeBlockNodeModel guid="1ea81753-b76d-4ada-ae5e-61ffc2dbacb0" type="Dynamo.Graph.Nodes.CodeBlockNodeModel" nickname="Code Block" x="577.411189782215" y="150.006646752479" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" CodeText="Unobstructed;" ShouldFocus="false">
+      <PortInfo index="0" default="False" />
+    </Dynamo.Graph.Nodes.CodeBlockNodeModel>
+    <Dynamo.Graph.Nodes.CodeBlockNodeModel guid="50822ac1-edb3-43c3-90ea-ced7f70fdb4f" type="Dynamo.Graph.Nodes.CodeBlockNodeModel" nickname="Code Block" x="684.621409465341" y="33.2825450318342" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" CodeText="solid;" ShouldFocus="false">
+      <PortInfo index="0" default="False" />
+    </Dynamo.Graph.Nodes.CodeBlockNodeModel>
+    <Dynamo.Graph.Nodes.CustomNodes.Output guid="15e8c0f3-7646-4a79-b20a-e2d94b878ac9" type="Dynamo.Graph.Nodes.CustomNodes.Output" nickname="Output" x="1278.80870121512" y="12.2970252829968" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
+      <PortInfo index="0" default="False" />
+      <Symbol value="Solid" />
+    </Dynamo.Graph.Nodes.CustomNodes.Output>
+    <Dynamo.Graph.Nodes.CustomNodes.Symbol guid="73f6a1f7-ea6e-44f5-a8f4-f4ee57c3b869" type="Dynamo.Graph.Nodes.CustomNodes.Symbol" nickname="Input" x="374.30561835022" y="-105.532786182469" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <Symbol value="SetSolid:bool=false" />
+    </Dynamo.Graph.Nodes.CustomNodes.Symbol>
+    <Dynamo.Graph.Nodes.CustomNodes.Symbol guid="7cb2081c-0318-4413-8d14-07ee73386614" type="Dynamo.Graph.Nodes.CustomNodes.Symbol" nickname="Input" x="272.536058692874" y="154.010857964511" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <Symbol value="SetUnobstructed:bool=false" />
+    </Dynamo.Graph.Nodes.CustomNodes.Symbol>
+    <Dynamo.Graph.Nodes.CodeBlockNodeModel guid="15dea557-f609-4996-b543-45072d8d0f14" type="Dynamo.Graph.Nodes.CodeBlockNodeModel" nickname="Code Block" x="1073" y="61" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" CodeText="x[0];&#xA;x[1];" ShouldFocus="false">
+      <PortInfo index="0" default="False" />
+    </Dynamo.Graph.Nodes.CodeBlockNodeModel>
+    <Dynamo.Graph.Nodes.CustomNodes.Output guid="31d85d31-7a60-4396-820b-9136ed78bc81" type="Dynamo.Graph.Nodes.CustomNodes.Output" nickname="Output" x="1273.36912760521" y="105.259375295444" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
+      <PortInfo index="0" default="False" />
+      <Symbol value="Unobstructed" />
+    </Dynamo.Graph.Nodes.CustomNodes.Output>
+  </Elements>
+  <Connectors>
+    <Dynamo.Graph.Connectors.ConnectorModel start="3154a6f4-8512-490a-a764-be7721f4a7ec" start_index="0" end="15dea557-f609-4996-b543-45072d8d0f14" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="1ea81753-b76d-4ada-ae5e-61ffc2dbacb0" start_index="0" end="3154a6f4-8512-490a-a764-be7721f4a7ec" end_index="1" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="50822ac1-edb3-43c3-90ea-ced7f70fdb4f" start_index="0" end="3154a6f4-8512-490a-a764-be7721f4a7ec" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="73f6a1f7-ea6e-44f5-a8f4-f4ee57c3b869" start_index="0" end="50822ac1-edb3-43c3-90ea-ced7f70fdb4f" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="7cb2081c-0318-4413-8d14-07ee73386614" start_index="0" end="1ea81753-b76d-4ada-ae5e-61ffc2dbacb0" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="15dea557-f609-4996-b543-45072d8d0f14" start_index="0" end="15e8c0f3-7646-4a79-b20a-e2d94b878ac9" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="15dea557-f609-4996-b543-45072d8d0f14" start_index="1" end="31d85d31-7a60-4396-820b-9136ed78bc81" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="Background Preview" eyeX="-17" eyeY="24" eyeZ="50" lookX="12" lookY="-13" lookZ="-58" upX="0" upY="1" upZ="0" />
+  </Cameras>
+</Workspace>

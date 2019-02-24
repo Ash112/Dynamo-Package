@@ -1,0 +1,100 @@
+<Workspace Version="1.3.3.4111" X="-272.202635780102" Y="234.071382560622" zoom="0.888789228297156" ScaleFactor="1" Name="CollectorByType" Description="Selects All Elements of Type in Project" ID="946bba98-22e8-41e7-9c9d-5402a53e892d" Category="AKP Tools.Selection">
+  <NamespaceResolutionMap>
+    <ClassMap partialName="String" resolvedName="DSCore.String" assemblyName="DSCoreNodes.dll" />
+    <ClassMap partialName="ElementTypes" resolvedName="archilab.Revit.Elements.ElementTypes" assemblyName="archilab.dll" />
+  </NamespaceResolutionMap>
+  <Elements>
+    <PythonNodeModels.PythonNode guid="68954ee1-e19f-4299-ac0d-47c5bb1b2e22" type="PythonNodeModels.PythonNode" nickname="Python Script" x="658.554570961214" y="1.17854579544399" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" inputcount="2">
+      <PortInfo index="0" default="False" />
+      <PortInfo index="1" default="False" />
+      <Script>import clr
+
+clr.AddReference('RevitAPI')
+from Autodesk.Revit.DB import *
+from Autodesk.Revit.DB.Structure import *
+
+clr.AddReference('RevitAPIUI')
+from Autodesk.Revit.UI import *
+
+clr.AddReference('System')
+from System.Collections.Generic import List
+
+clr.AddReference('RevitNodes')
+import Revit
+clr.ImportExtensions(Revit.GeometryConversion)
+clr.ImportExtensions(Revit.Elements)
+
+clr.AddReference('RevitServices')
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+
+doc = DocumentManager.Instance.CurrentDBDocument
+uidoc=DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument
+uiapp = DocumentManager.Instance.CurrentUIApplication
+app = uiapp.Application
+
+
+select = []
+uisel = uidoc.Selection
+result = []
+
+type = IN[0]
+
+selectelements = IN[1]
+
+#Preparing input from dynamo to revit
+
+collector = FilteredElementCollector(doc)
+
+#Do some action in a Transaction
+TransactionManager.Instance.EnsureInTransaction(doc)
+
+
+
+Selectedtype = collector.OfClass(type).ToElements()
+
+if selectelements == True:
+
+	for i in Selectedtype:
+	
+		select.append(i.Id)
+		Icollection = List[ElementId](select)
+		uisel.SetElementIds(Icollection)
+		result.append("Seccess")
+		
+	else:
+
+		result=null
+
+
+
+
+		
+				
+TransactionManager.Instance.TransactionTaskDone()
+
+
+OUT = Selectedtype
+</Script>
+    </PythonNodeModels.PythonNode>
+    <Dynamo.Graph.Nodes.CustomNodes.Output guid="6bf1f075-f67e-4fc7-9c2e-0b751cf66971" type="Dynamo.Graph.Nodes.CustomNodes.Output" nickname="Output" x="857.554570961214" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
+      <PortInfo index="0" default="False" />
+      <Symbol value="//List Of Elements in Project&#xD;&#xA;Elements" />
+    </Dynamo.Graph.Nodes.CustomNodes.Output>
+    <Dynamo.Graph.Nodes.CustomNodes.Symbol guid="0c125c76-77fd-4ec2-9f99-486e113c3443" type="Dynamo.Graph.Nodes.CustomNodes.Symbol" nickname="Input" x="262.616517500615" y="-1.86881282989327" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <Symbol value="// Element Type to be Selected&#xD;&#xA;ElementType" />
+    </Dynamo.Graph.Nodes.CustomNodes.Symbol>
+    <Dynamo.Graph.Nodes.CustomNodes.Symbol guid="5125eb57-3e4e-4391-97c9-c49a8f58bf91" type="Dynamo.Graph.Nodes.CustomNodes.Symbol" nickname="Input" x="295.934007142753" y="86.4230603563157" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <Symbol value="// Select Elements in View&#xD;&#xA;SelectElements:bool = false" />
+    </Dynamo.Graph.Nodes.CustomNodes.Symbol>
+  </Elements>
+  <Connectors>
+    <Dynamo.Graph.Connectors.ConnectorModel start="68954ee1-e19f-4299-ac0d-47c5bb1b2e22" start_index="0" end="6bf1f075-f67e-4fc7-9c2e-0b751cf66971" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="0c125c76-77fd-4ec2-9f99-486e113c3443" start_index="0" end="68954ee1-e19f-4299-ac0d-47c5bb1b2e22" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="5125eb57-3e4e-4391-97c9-c49a8f58bf91" start_index="0" end="68954ee1-e19f-4299-ac0d-47c5bb1b2e22" end_index="1" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+</Workspace>

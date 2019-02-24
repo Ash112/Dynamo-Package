@@ -1,0 +1,66 @@
+<Workspace Version="1.3.3.4111" X="-430.185953138506" Y="2.61323804180169" zoom="1.89968511556663" ScaleFactor="1" Name="GetAllViewsinView" Description="Gets all sections,elevations..etc in Active View" ID="16f8d834-ce73-478d-97c4-4481e1467bf8" Category="AKP Tools.Selection">
+  <NamespaceResolutionMap />
+  <Elements>
+    <PythonNodeModels.PythonNode guid="9a1f11f3-f54d-4d34-b364-a4c9cb09c815" type="PythonNodeModels.PythonNode" nickname="Python Script" x="250" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="true" inputcount="1">
+      <PortInfo index="0" default="False" />
+      <Script>import clr
+
+clr.AddReference('RevitAPI')
+from Autodesk.Revit.DB import *
+from Autodesk.Revit.DB.Structure import *
+
+clr.AddReference('RevitAPIUI')
+from Autodesk.Revit.UI import *
+
+clr.AddReference('System')
+from System.Collections.Generic import List
+
+clr.AddReference('RevitNodes')
+import Revit
+clr.ImportExtensions(Revit.GeometryConversion)
+clr.ImportExtensions(Revit.Elements)
+
+clr.AddReference('RevitServices')
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+
+doc = DocumentManager.Instance.CurrentDBDocument
+uidoc=DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument
+
+
+Runit = IN[0]
+
+views = []
+
+if Runit == True:
+
+	v= doc.ActiveView.Id
+
+	collector = FilteredElementCollector(doc,v)
+
+	views = collector.OfCategory(BuiltInCategory.OST_Viewers).ToElements()
+
+
+OUT = views
+</Script>
+    </PythonNodeModels.PythonNode>
+    <Dynamo.Graph.Nodes.CustomNodes.Symbol guid="6961f4a0-fae1-40ba-b4fd-d1a8e992d852" type="Dynamo.Graph.Nodes.CustomNodes.Symbol" nickname="Input" x="0" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <Symbol value="//Set true to run&#xD;&#xA;RunIt:bool=false" />
+    </Dynamo.Graph.Nodes.CustomNodes.Symbol>
+    <Dynamo.Graph.Nodes.CustomNodes.Output guid="2033b4e8-7760-4d46-99f6-20ce8a6078e7" type="Dynamo.Graph.Nodes.CustomNodes.Output" nickname="Output" x="449" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
+      <PortInfo index="0" default="False" />
+      <Symbol value="Views" />
+    </Dynamo.Graph.Nodes.CustomNodes.Output>
+  </Elements>
+  <Connectors>
+    <Dynamo.Graph.Connectors.ConnectorModel start="9a1f11f3-f54d-4d34-b364-a4c9cb09c815" start_index="0" end="2033b4e8-7760-4d46-99f6-20ce8a6078e7" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="6961f4a0-fae1-40ba-b4fd-d1a8e992d852" start_index="0" end="9a1f11f3-f54d-4d34-b364-a4c9cb09c815" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="Background Preview" eyeX="-17" eyeY="24" eyeZ="50" lookX="12" lookY="-13" lookZ="-58" upX="0" upY="1" upZ="0" />
+  </Cameras>
+</Workspace>

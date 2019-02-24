@@ -1,0 +1,53 @@
+<Workspace Version="1.3.2.2480" X="-8.57687183611841" Y="131.885032548541" zoom="1.24844365397223" ScaleFactor="1" Name="Python Template" Description="Python Template With All Libraries loaded" ID="2eecd07d-a07c-4d39-9131-a57146f0f0ac" Category="AKP Tools.Python">
+  <NamespaceResolutionMap />
+  <Elements>
+    <PythonNodeModels.PythonNode guid="ed20bcfd-8082-4f72-9230-4e809a4e2678" type="PythonNodeModels.PythonNode" nickname="Python Template" x="250" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" inputcount="1">
+      <PortInfo index="0" default="False" />
+      <Script>import clr
+clr.AddReference('ProtoGeometry')
+clr.AddReference('ProtoGeometry')
+clr.AddReference("RevitNodes")
+clr.AddReference("RevitServices")
+clr.AddReference("RevitAPI")
+import Revit
+import System
+import RevitServices
+import Autodesk
+from Revit.Elements import *
+from Autodesk.DesignScript.Geometry import *
+from Autodesk.Revit.DB import *
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+clr.ImportExtensions(Revit.Elements)
+clr.ImportExtensions(Revit.GeometryConversion)
+
+doc = DocumentManager.Instance.CurrentDBDocument
+uiapp = DocumentManager.Instance.CurrentUIApplication
+app = uiapp.Application
+
+Elements = IN[0]
+
+TransactionManager.Instance.EnsureInTransaction(doc)
+
+
+TransactionManager.Instance.TransactionTaskDone()
+
+
+OUT = 0</Script>
+    </PythonNodeModels.PythonNode>
+    <Dynamo.Graph.Nodes.CustomNodes.Output guid="e6454646-3850-4336-9684-53d546e725be" type="Dynamo.Graph.Nodes.CustomNodes.Output" nickname="Output" x="439.388032361878" y="-1.60199460635369" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
+      <PortInfo index="0" default="False" />
+      <Symbol value="OUT" />
+    </Dynamo.Graph.Nodes.CustomNodes.Output>
+    <Dynamo.Graph.Nodes.CustomNodes.Symbol guid="9cf77a84-ce8d-40d8-bd47-fbd6a8d6abc4" type="Dynamo.Graph.Nodes.CustomNodes.Symbol" nickname="Input" x="101.909385178406" y="-0.717953340150899" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <Symbol value="IN" />
+    </Dynamo.Graph.Nodes.CustomNodes.Symbol>
+  </Elements>
+  <Connectors>
+    <Dynamo.Graph.Connectors.ConnectorModel start="ed20bcfd-8082-4f72-9230-4e809a4e2678" start_index="0" end="e6454646-3850-4336-9684-53d546e725be" end_index="0" portType="0" />
+    <Dynamo.Graph.Connectors.ConnectorModel start="9cf77a84-ce8d-40d8-bd47-fbd6a8d6abc4" start_index="0" end="ed20bcfd-8082-4f72-9230-4e809a4e2678" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+</Workspace>
